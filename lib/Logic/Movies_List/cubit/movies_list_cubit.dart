@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:pwc_movie/Constants/strings.dart';
 
 import 'package:pwc_movie/Data/Models/movies_list.dart';
 import 'package:pwc_movie/Data/Repository/movies_list_repository.dart';
@@ -44,5 +46,27 @@ class MoviesListCubit extends Cubit<MoviesListState> {
       page++;
     });
     return model;
+  }
+
+  void initDynamicLinks() async {
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+      final Uri? deeplink = dynamicLink!.link;
+
+      if (deeplink != null) {
+        List<String> sepeatedLink = [];
+
+  
+        sepeatedLink.addAll(deeplink.path.split('/'));
+
+        print("The Token that i'm interesed in is ${sepeatedLink[1]}");
+        // ProductDetailScreen(sepeatedLink[1]));
+
+        // Navigator.pushNamed(movieDetailsScreen,
+        //     arguments:);
+      }
+    }, onError: (OnLinkErrorException e) async {
+      print("We got error $e");
+    });
   }
 }

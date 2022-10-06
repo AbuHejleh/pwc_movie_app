@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "468454491907",
+    "project_id": "movieapp-16169",
+    "storage_bucket": "movieapp-16169.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468454491907:android:497ce01b506daeb9c1cb36",
+        "android_client_info": {
+          "package_name": "com.example.pwc_movie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468454491907-hv2sgfciokkbujnrhe6v0usi4chjjp8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsHafxaMB2A1ourRZh0PTORW3x0Utm_eE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468454491907-hv2sgfciokkbujnrhe6v0usi4chjjp8i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,6 +17,7 @@ class _MovieScreenState extends State<MovieScreen> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<MoviesListCubit>(context).initDynamicLinks();
     movieListModel = BlocProvider.of<MoviesListCubit>(context)
         .getData(title: "Title", pageNumber: 1);
     scrollController.addListener(() {
@@ -32,61 +33,65 @@ class _MovieScreenState extends State<MovieScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Movie Screen"),
-      ),
-      body: BlocBuilder<MoviesListCubit, MoviesListState>(
-        builder: (context, state) {
-          var provider = BlocProvider.of<MoviesListCubit>(context);
-          if (state is OnComplete) {
-            return Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                        child: TextFormField(
-                      controller: provider.textEditingController,
-                      onFieldSubmitted: (text) {
-                        provider.searchForMovie(
-                            title: text, pageNumber: provider.page);
-                      },
-                    )),
-                  ],
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    controller: scrollController,
-                    itemCount: state.movies.search.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(movieDetailsScreen,
-                                arguments: state.movies.search[index].imdbId);
-                          },
-                          leading: SizedBox(
-                              child: Image.network(
-                            state.movies.search[index].poster.contains("http")
-                                ? state.movies.search[index].poster
-                                : "http://" + state.movies.search[index].poster,
-                            fit: BoxFit.cover,
-                            width: 120,
-                            height: 80,
-                          )),
-                          title: Text(state.movies.search[index].title),
-                        ),
-                      );
-                    },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Movie Screen"),
+        ),
+        body: BlocBuilder<MoviesListCubit, MoviesListState>(
+          builder: (context, state) {
+            var provider = BlocProvider.of<MoviesListCubit>(context);
+            if (state is OnComplete) {
+              return Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                          child: TextFormField(
+                        controller: provider.textEditingController,
+                        onFieldSubmitted: (text) {
+                          provider.searchForMovie(
+                              title: text, pageNumber: provider.page);
+                        },
+                      )),
+                    ],
                   ),
-                ),
-              ],
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+                  Expanded(
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: state.movies.search.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                  movieDetailsScreen,
+                                  arguments: state.movies.search[index].imdbId);
+                            },
+                            leading: SizedBox(
+                                child: Image.network(
+                              state.movies.search[index].poster.contains("http")
+                                  ? state.movies.search[index].poster
+                                  : "http://" +
+                                      state.movies.search[index].poster,
+                              fit: BoxFit.cover,
+                              width: 120,
+                              height: 80,
+                            )),
+                            title: Text(state.movies.search[index].title),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
     );
   }
