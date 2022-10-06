@@ -48,7 +48,7 @@ class MoviesListCubit extends Cubit<MoviesListState> {
     return model;
   }
 
-  void initDynamicLinks() async {
+  void initDynamicLinks(BuildContext context) async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
       final Uri? deeplink = dynamicLink!.link;
@@ -56,14 +56,14 @@ class MoviesListCubit extends Cubit<MoviesListState> {
       if (deeplink != null) {
         List<String> sepeatedLink = [];
 
-  
         sepeatedLink.addAll(deeplink.path.split('/'));
 
         print("The Token that i'm interesed in is ${sepeatedLink[1]}");
-        // ProductDetailScreen(sepeatedLink[1]));
+         Navigator.of(context).pushNamed(
+                                  movieDetailsScreen,
+                                  arguments: sepeatedLink[1]);
 
-        // Navigator.pushNamed(movieDetailsScreen,
-        //     arguments:);
+       
       }
     }, onError: (OnLinkErrorException e) async {
       print("We got error $e");

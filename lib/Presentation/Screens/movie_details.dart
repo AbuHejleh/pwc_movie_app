@@ -56,7 +56,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                 .shareLinks(
                                     title: provider.model!.title!,
                                     image: provider.model!.poster!,
-                                    docId: provider.model!.year!);
+                                    docId: provider.model!.imdbId!);
                           },
                           child: const Text("SHARE IT"))
                     ],

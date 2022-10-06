@@ -17,7 +17,7 @@ class _MovieScreenState extends State<MovieScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MoviesListCubit>(context).initDynamicLinks();
+    BlocProvider.of<MoviesListCubit>(context).initDynamicLinks(context);
     movieListModel = BlocProvider.of<MoviesListCubit>(context)
         .getData(title: "Title", pageNumber: 1);
     scrollController.addListener(() {

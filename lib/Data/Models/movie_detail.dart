@@ -19,7 +19,7 @@ class MovieDetailsModel {
     required this.country,
     required this.awards,
     required this.poster,
-    required this.ratings,
+    // required this.ratings,
     required this.metascore,
     required this.imdbRating,
     required this.imdbVotes,
@@ -43,7 +43,7 @@ class MovieDetailsModel {
   final String? country;
   final String? awards;
   final String? poster;
-  final List<Rating> ratings;
+  // final List<Rating> ratings;
   final String? metascore;
   final String? imdbRating;
   final String? imdbVotes;
@@ -68,8 +68,8 @@ class MovieDetailsModel {
         country: json["Country"],
         awards: json["Awards"],
         poster: json["Poster"],
-        ratings:
-            List<Rating>.from(json["Ratings"].map((x) => Rating.fromJson(x))),
+        // ratings:
+        //     List<Rating>.from(json["Ratings"].map((x) => Rating.fromJson(x))),
         metascore: json["Metascore"],
         imdbRating: json["imdbRating"],
         imdbVotes: json["imdbVotes"],
