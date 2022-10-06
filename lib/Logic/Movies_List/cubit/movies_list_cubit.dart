@@ -14,11 +14,11 @@ class MoviesListCubit extends Cubit<MoviesListState> {
   TextEditingController textEditingController = TextEditingController();
 
   MovieListModel? getData({required String title, required num pageNumber}) {
-    emit(MoviesListInitial());
     moviesListRepository
         .getMoviesList(title: title, pageNumber: pageNumber)
         .then((moviesList) {
       if (model != null) {
+        emit(MoviesListInitial());
         model!.search.addAll(moviesList.search);
         emit(OnComplete(model!));
         page++;
@@ -34,13 +34,14 @@ class MoviesListCubit extends Cubit<MoviesListState> {
 
   MovieListModel? searchForMovie(
       {required String title, required num pageNumber}) {
+    int page = 1;
     emit(MoviesListInitial());
-    page = 1;
     moviesListRepository
         .getMoviesList(title: title, pageNumber: pageNumber)
         .then((moviesList) {
       model = moviesList;
       emit(OnComplete(model!));
+      page++;
     });
     return model;
   }
